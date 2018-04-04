@@ -8,11 +8,14 @@ package puntodeventa;
 import clases.conectar;
 import com.sun.glass.events.KeyEvent;
 import java.sql.PreparedStatement;
+import java.sql.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.JTable;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,19 +45,21 @@ public class Sistema extends javax.swing.JFrame {
     
     private void setFilas() throws SQLException{
         try {
-            String sql = "SELECT id_produ"
-                    + "cto, nombre, costo, cantidad, descripcion, codigo_producto FROM productos";
+            String sql = "SELECT * FROM productos";
             PreparedStatement us = con.getConnection().prepareStatement(sql);
             
             ResultSet res = us.executeQuery();
-            Object datos[] = new Object[6];
+            String datos[] = new String[6];
         while(res.next()){
-            for (int i = 0; i<6; i++ ){
-                datos[i] = res.getObject(i+1);    
-            }
+            datos[0] = res.getString("id_producto");    
+            datos[1] = res.getString("nombre"); 
+            datos[2] = res.getString("costo"); 
+            datos[3] = res.getString("cantidad"); 
+            datos[4] = res.getString("descripcion"); 
+            datos[5] = res.getString("codigo_producto"); 
             modeloTabla.addRow(datos);
         }
-        res.close();
+        jTable1.setModel(modeloTabla);
         }   
         catch(SQLException ex){
             Logger.getLogger(NewJFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -115,10 +120,10 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
         jTextField1.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jTextField1InputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -164,13 +169,13 @@ public class Sistema extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(jTable1);

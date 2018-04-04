@@ -69,6 +69,12 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setText("Iniciar sesión como:");
         getContentPane().add(jLabel4);
         jLabel4.setBounds(20, 230, 130, 20);
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jTextField1);
         jTextField1.setBounds(140, 120, 150, 20);
 
@@ -177,6 +183,10 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.exit (0);
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
