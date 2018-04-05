@@ -10,14 +10,14 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 
 public class Metodos {
-    private final String SQL_INSERT="INSERT INTO registro(usuario, contraseña)values(?, ?)";
+    //private final String SQL_INSERT="INSERT INTO registro(usuario, contraseña)values(?, ?)";
     private final String SQL_INSERT_ADMIN = "INSERT INTO registrousers (usuario, contraseña) values (?, ?)";
     private final String SQL_INSERT_PRODUCTOS = "INSERT INTO productos (nombre, costo, cantidad, descripcion, codigo_producto) values (?, ?, ?, ?, ?)";
     private final String SQL_SELECT="SELECT contraseña FROM registro WHERE usuario= ?";
     private final String SQL_SELECT_ADMIN = "SELECT contraseña FROM registrousers WHERE usuario=?";
     //private final String SQL_SELECT_PRODUCTOS = "SELECT id_producto FROM productos";
-    private final String SQL_UPDATE = "UPDATE registro SET usuario= ?, contraseña= ?";
-    private final String SQL_UPDATE_PASS = "UPDATE registrousers SET contraseña = ?";
+    private final String SQL_UPDATE = "UPDATE registrousers SET usuario= ?, contraseña= ?  WHERE id_admin=?";
+    private final String SQL_UPDATE_PASS = "UPDATE registrousers SET contraseña = ? WHERE usuario=?";
     private final String SQL_UPDATE_PRODUCTS = "UPDATE productos SET nombre = ?, costo = ?, cantidad = ?, descripcion = ?, codigo_producto = ? WHERE id_producto=?";
     private ResultSet RS;
     private PreparedStatement PS;
@@ -53,7 +53,7 @@ public class Metodos {
     
     public int inserDatos(String usuario, String contraseña){
         try{
-            PS=CONEC.getConnection().prepareStatement(SQL_INSERT);
+            PS=CONEC.getConnection().prepareStatement(SQL_INSERT_ADMIN);
             PS.setString(1, usuario);
             PS.setString(2, contraseña);
             
@@ -91,12 +91,13 @@ public class Metodos {
         return 0;
     }
    
-    public int upDatos(String usuario, String contraseña, int n_registro){
+    public int upDatos(String usuario, String contraseña, String id_admin ){
         try{
            PS=CONEC.getConnection().prepareStatement(SQL_UPDATE);
            PS.setString(1, usuario);
            PS.setString(2, contraseña);
-           PS.setInt(3, n_registro);
+           //PS.setEnum(3,tipoUser)
+           PS.setString(3, id_admin);
            
            int res=PS.executeUpdate();
            if(res>0){
@@ -109,10 +110,11 @@ public class Metodos {
         return 0;
     }
     
-    public int upDatosPass (String password){
+    public int upDatosPass (String password, String usuario){
         try{
            PS=CONEC.getConnection().prepareStatement(SQL_UPDATE_PASS);
            PS.setString(1, password);
+           PS.setString(2,usuario);
            
            int res=PS.executeUpdate();
            if(res>0){
