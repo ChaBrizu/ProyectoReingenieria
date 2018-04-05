@@ -15,10 +15,10 @@ public class Metodos {
     private final String SQL_INSERT_PRODUCTOS = "INSERT INTO productos (nombre, costo, cantidad, descripcion, codigo_producto) values (?, ?, ?, ?, ?)";
     private final String SQL_SELECT="SELECT contraseña FROM registro WHERE usuario= ?";
     private final String SQL_SELECT_ADMIN = "SELECT contraseña FROM registrousers WHERE usuario=?";
-    private final String SQL_SELECT_PRODUCTOS = "SELECT id_producto FROM productos";
+    //private final String SQL_SELECT_PRODUCTOS = "SELECT id_producto FROM productos";
     private final String SQL_UPDATE = "UPDATE registro SET usuario= ?, contraseña= ?";
     private final String SQL_UPDATE_PASS = "UPDATE registrousers SET contraseña = ?";
-    private final String SQL_UPDATE_PRODUCTS = "UPDATE productos SET nombre = ?, costo = ?, cantidad = ?, descripcion = ?, codigo_producto = ?";
+    private final String SQL_UPDATE_PRODUCTS = "UPDATE productos SET nombre = ?, costo = ?, cantidad = ?, descripcion = ?, codigo_producto = ? WHERE id_producto=?";
     private ResultSet RS;
     private PreparedStatement PS;
     private final conectar CONEC;
@@ -125,9 +125,10 @@ public class Metodos {
         return 0;
     }
     
-     public int updateProductos (String nombre, String costo, String cantidad, String descripcion, String codigo_producto){
+     public int updateProductos (String nombre, String costo, String cantidad, String descripcion, String codigo_producto, String id_producto){
         try{
            PS=CONEC.getConnection().prepareStatement(SQL_UPDATE_PRODUCTS);
+           PS.setString(6,id_producto);
            PS.setString(1, nombre);
            PS.setString(2, costo);
            PS.setString(3, cantidad);
@@ -170,7 +171,7 @@ public class Metodos {
         }
     }
     
-     public int SelectProductosID (Integer id_producto){
+    /* public int SelectProductosID (Integer id_producto){
         String Con = "";
         int control = 0;
         try{
@@ -195,7 +196,7 @@ public class Metodos {
         } else{
            return 0;
         }
-    }
+    }*/
     
     public int SelectDatosAdmin (String usuario,String contra){
         String Con = "";
