@@ -13,8 +13,8 @@ public class Metodos {
     //private final String SQL_INSERT="INSERT INTO registro(usuario, contraseña)values(?, ?)";
     private final String SQL_INSERT_ADMIN = "INSERT INTO registrousers (usuario, contraseña) values (?, ?)";
     private final String SQL_INSERT_PRODUCTOS = "INSERT INTO productos (nombre, costo, cantidad, descripcion, codigo_producto) values (?, ?, ?, ?, ?)";
-    private final String SQL_SELECT="SELECT contraseña FROM registro WHERE usuario= ?";
-    private final String SQL_SELECT_ADMIN = "SELECT contraseña FROM registrousers WHERE usuario=?";
+    private final String SQL_SELECT_TIPOUSER="SELECT tipoUser FROM registrousers WHERE usuario= ?";
+    private final String SQL_SELECT_ADMIN = "SELECT contraseña, tipoUser FROM registrousers WHERE usuario=?";
     //private final String SQL_SELECT_PRODUCTOS = "SELECT id_producto FROM productos";
     private final String SQL_UPDATE = "UPDATE registrousers SET usuario= ?, contraseña= ?  WHERE id_admin=?";
     private final String SQL_UPDATE_PASS = "UPDATE registrousers SET contraseña = ? WHERE usuario=?";
@@ -148,7 +148,7 @@ public class Metodos {
         return 0;
     }
     
-    public int SelectDatos(String usuario,String contra){
+    /*public int SelectDatos(String usuario,String contra){
         String Con = "";
         int control = 0;
         try{
@@ -171,7 +171,7 @@ public class Metodos {
         }else{
            return 0;
         }
-    }
+    }*/
     
     /* public int SelectProductosID (Integer id_producto){
         String Con = "";
@@ -212,17 +212,41 @@ public class Metodos {
             }
             
             if(Con.equals(contra)){
-                JOptionPane.showMessageDialog(null, "Excelente","Exito", JOptionPane.INFORMATION_MESSAGE);
+               //JOptionPane.showMessageDialog(null, "Excelente","Exito", JOptionPane.INFORMATION_MESSAGE);
                control = 1; 
+            }
+            else{
+                control =0 ;
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
         }
-        if(control ==1){
-            return 1;
-        }else{
-           return 0;
-        }
+        return control;
     }
-        
+    
+    public int SelectTipoUser (String usuario){
+        String Con = "";
+        int tipo = 0;
+        try{
+            PS = CONEC.getConnection().prepareStatement(SQL_SELECT_TIPOUSER);
+            PS.setString(1, usuario);
+            RS = PS.executeQuery();
+            if(RS.next()){
+               Con = RS.getString(1);
+            }
+            
+            if(Con.equals("admin")){
+                JOptionPane.showMessageDialog(null, "Admin","Exito", JOptionPane.INFORMATION_MESSAGE);
+               tipo = 1;
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Usuario","Exito", JOptionPane.INFORMATION_MESSAGE);
+               tipo = 0;
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+        }
+        return tipo;
+    }
+    
 }

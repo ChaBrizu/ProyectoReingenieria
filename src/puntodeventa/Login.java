@@ -46,11 +46,9 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -66,17 +64,13 @@ public class Login extends javax.swing.JFrame {
         getContentPane().add(jLabel3);
         jLabel3.setBounds(20, 170, 80, 20);
 
-        jLabel4.setText("Iniciar sesión como:");
-        getContentPane().add(jLabel4);
-        jLabel4.setBounds(20, 230, 130, 20);
-
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
         getContentPane().add(jTextField1);
-        jTextField1.setBounds(140, 120, 150, 20);
+        jTextField1.setBounds(140, 120, 150, 22);
 
         jButton1.setText("Iniciar Sesion");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -85,18 +79,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(160, 310, 120, 23);
+        jButton1.setBounds(160, 220, 120, 25);
         getContentPane().add(jPasswordField1);
         jPasswordField1.setBounds(140, 170, 150, 20);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Usuario" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(160, 230, 130, 20);
         getContentPane().add(jLabel1);
         jLabel1.setBounds(-10, 0, 330, 50);
 
@@ -115,30 +100,38 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(30, 310, 80, 23);
+        jButton2.setBounds(40, 220, 80, 25);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (bandera == true) {
             Metodos ft=new Metodos();
             String usuario=jTextField1.getText();
             String contraseña=new String (jPasswordField1.getPassword());
-            int control;
+            int control, tipo;
             control=ft.SelectDatosAdmin(usuario, contraseña);
+            
             if(control==1){
+                tipo=ft.SelectTipoUser(usuario);
                 dispose();
                 JOptionPane.showMessageDialog(null, "Bienvenido\nHas ingresado"+" satisfactoriamente al sistema", "Mensaje de Bienvenida", JOptionPane.INFORMATION_MESSAGE);
-                Sistema sistema = new Sistema();
-                sistema.setVisible (true);
-                sistema.setLocationRelativeTo (null);
+                                
+                if(tipo==1){
+                    Sistema sistema = new Sistema();
+                    sistema.setVisible (true);
+                    sistema.setLocationRelativeTo (null);
+                }
+                else{
+                    SistemaUser sistema = new SistemaUser ();
+                    sistema.setLocationRelativeTo (null);
+                    sistema.setVisible(true);
+                }
             }
             else{
                 JOptionPane.showMessageDialog(null, "Datos Incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
-            } 
-        }
-        if (bandera == false) {
+            }
+        /*if (bandera == false) {
             Metodos ft=new Metodos();
             String usuario=jTextField1.getText();
             String contraseña=new String (jPasswordField1.getPassword());
@@ -154,30 +147,13 @@ public class Login extends javax.swing.JFrame {
             else{
                 JOptionPane.showMessageDialog(null, "Datos Incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
             } 
-        }
+        }*/
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-        // TODO add your handling code here:
+    // TODO add your handling code here:
     }//GEN-LAST:event_jLabel5MouseClicked
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-        String itemSeleccionado = (String)jComboBox1.getSelectedItem();
-        if ("Administrador".equals(itemSeleccionado)) {
-            System.out.println ("Administrador");
-            bandera = true;
-            System.out.println (bandera);
-            
-        }
-        
-        if ("Usuario".equals(itemSeleccionado)) {
-            System.out.println ("Usuario");
-            bandera = false;
-            System.out.println (bandera);
-        }
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
@@ -224,11 +200,9 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
