@@ -31,6 +31,7 @@ public class ConfirmarSalida extends javax.swing.JFrame {
         confirm = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("¿Quiere salir?");
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("¿Seguro que desea salir?");

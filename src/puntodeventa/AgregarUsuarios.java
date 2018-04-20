@@ -33,6 +33,7 @@ public class AgregarUsuarios extends javax.swing.JFrame {
         Cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Agregar Usuario.");
 
         jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel1.setText("Agregar nuevo usuario como");

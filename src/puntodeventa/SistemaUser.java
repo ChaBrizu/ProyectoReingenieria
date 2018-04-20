@@ -30,10 +30,26 @@ public class SistemaUser extends javax.swing.JFrame {
         buscar("");
     }
     
+    public void Existe(String exp) {
+        try{
+            PreparedStatement us = con.getConnection().prepareStatement("SELECT codigo_producto FROM productos WHERE codigo_producto = '" + exp+ "'");
+            ResultSet rs = us.executeQuery();
+            if(rs.next()){
+                buscar(txtBuscar.getText());
+                txtBuscar.setText(""); 
+            } else
+                JOptionPane.showMessageDialog(null, "NO existe el producto. ","ERROR",JOptionPane.ERROR_MESSAGE);
+                rs.close();
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+    }
+    
     private void buscar(String valor){
         //Se definen el nombre de las columnas de la tabla y se agregan un modelo
         DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("id_producto");
+        //modelo.addColumn("id_producto");
         modelo.addColumn("Nombre");
         modelo.addColumn("Costo");
         modelo.addColumn("Cantidad");
@@ -59,12 +75,12 @@ public class SistemaUser extends javax.swing.JFrame {
             ResultSet rs = us.executeQuery();//Almacena los datos de la consulta que se va a realizar
             //Se asignan los valores de la busqueda en una posicion del arreglo
             while( rs.next()) {
-                datos[0] = rs.getString(1);
-                datos[1] = rs.getString(2);
-                datos[2] = rs.getString(3);
-                datos[3] = rs.getString(4);
-                datos[4] = rs.getString(5);
-                datos[5] = rs.getString(6);
+                datos[0] = rs.getString(2);
+                datos[1] = rs.getString(3);
+                datos[2] = rs.getString(4);
+                datos[3] = rs.getString(5);
+                datos[4] = rs.getString(6);
+                //datos[5] = rs.getString(6);
                 modelo.addRow(datos);
             }
             jTable1.setModel(modelo);
@@ -89,8 +105,12 @@ public class SistemaUser extends javax.swing.JFrame {
         txtBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Inventario(USUARIO)");
 
         jButton2.setText("Buscar producto");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +150,19 @@ public class SistemaUser extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("INVENTARIO");
+
+        jButton1.setText("Mostrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Vender");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,35 +170,50 @@ public class SistemaUser extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(jButton3)
-                        .addGap(64, 64, 64)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton4))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 131, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jButton2))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton2)
-                    .addComponent(jButton4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton3)
+                            .addComponent(jButton4))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -192,8 +240,12 @@ public class SistemaUser extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        buscar(txtBuscar.getText());
-        txtBuscar.setText("");
+        if (txtBuscar.getText().equals("")) {
+            JOptionPane.showMessageDialog(null,"El campo esta vacio, introduce el CODIGO DE PRODUCTO que quieres buscar.","ADVERTENCIA",JOptionPane.WARNING_MESSAGE);
+        } else {
+            Existe(txtBuscar.getText());
+        }
+        
         /*boolean bandera = false;
         dispose ();
         BuscarProducto buscarProducto = new BuscarProducto (bandera);
@@ -201,6 +253,11 @@ public class SistemaUser extends javax.swing.JFrame {
         buscarProducto.setResizable (false);
         buscarProducto.setLocationRelativeTo (null);*/
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        buscar("");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -239,10 +296,13 @@ public class SistemaUser extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtBuscar;

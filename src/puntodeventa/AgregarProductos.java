@@ -5,6 +5,10 @@
  */
 package puntodeventa;
 
+import clases.conectar;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,12 +16,46 @@ import javax.swing.JOptionPane;
  * @author crash
  */
 public class AgregarProductos extends javax.swing.JFrame {
-
+     conectar con = new conectar();
     /**
      * Creates new form AgregarProductos
      */
     public AgregarProductos() {
         initComponents();
+    }
+    
+    public void Existe(String exp) {
+        String nombre = nombreProducto.getText();
+        String costo = precioProducto.getText();
+        String cantidad = cantidadProducto.getText();
+        String descripcion = descripcionProducto.getText();
+        String codigoBarras = codigoProducto.getText();
+        Metodos ft = new Metodos();
+        int control;
+        
+   
+        try{
+            PreparedStatement us = con.getConnection().prepareStatement("SELECT codigo_producto FROM productos WHERE codigo_producto = '" + exp+ "'");
+            ResultSet rs = us.executeQuery();
+            if(rs.next()){
+                JOptionPane.showMessageDialog(null, "NO existe el producto. ","ERROR",JOptionPane.ERROR_MESSAGE);
+            } else{
+                control = ft.insertProductos (nombre, costo, cantidad, descripcion, codigoBarras);
+                if (control == 1) {
+                   JOptionPane.showMessageDialog(null, "Nuevo producto agregado", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+                } 
+        
+                dispose();
+                Sistema sistema = new Sistema ();
+                sistema.setLocationRelativeTo (null);
+                sistema.setVisible (true);
+                sistema.setResizable (false);
+                rs.close();
+            }
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+ 
     }
 
     /**
@@ -218,26 +256,11 @@ public class AgregarProductos extends javax.swing.JFrame {
     private void aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aceptarActionPerformed
         // TODO add your handling code here:
         //dispose ();
-        String nombre = nombreProducto.getText();
-        String costo = precioProducto.getText();
-        String cantidad = cantidadProducto.getText();
-        String descripcion = descripcionProducto.getText();
-        String codigoBarras = codigoProducto.getText();
-        Metodos ft = new Metodos();
-        int control;
-        control = ft.insertProductos (nombre, costo, cantidad, descripcion, codigoBarras);
-        
-        if (control == 1) {
-         
-            JOptionPane.showMessageDialog(null, "Nuevo producto agregado", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-            
-        } 
-        
-        dispose();
-        Sistema sistema = new Sistema ();
-        sistema.setLocationRelativeTo (null);
-        sistema.setVisible (true);
-        sistema.setResizable (false);
+        if (nombreProducto.getText().equals("")||precioProducto.getText().equals("")||cantidadProducto.getText().equals("")||descripcionProducto.getText().equals("")||codigoProducto.getText().equals("")) {
+            JOptionPane.showMessageDialog(null,"Campo vacio.","ADVERTENCIA",JOptionPane.WARNING_MESSAGE);
+        } else {
+            Existe(codigoProducto.getText());
+        }
     }//GEN-LAST:event_aceptarActionPerformed
 
     private void nombreProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreProductoActionPerformed

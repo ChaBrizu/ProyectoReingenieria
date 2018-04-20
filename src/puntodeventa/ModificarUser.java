@@ -27,8 +27,10 @@ public class ModificarUser extends javax.swing.JFrame {
    
     public ModificarUser(){
          initComponents();
+         Mostrar("");
     }
     public void Habilitar(){
+        
         txtName.setEnabled(true);
         txtContra.setEnabled(true);
         btnModificar.setEnabled(true);
@@ -39,6 +41,25 @@ public class ModificarUser extends javax.swing.JFrame {
         txtContra.setEnabled(false);
         btnModificar.setEnabled(false);
         cbxTipo.setEnabled(false);
+    }
+    
+    public void Existe(String exp) {
+        try{
+            PreparedStatement us = con.getConnection().prepareStatement("SELECT id_admin FROM registrousers WHERE id_admin = '" + exp+ "'");
+            ResultSet rs = us.executeQuery();
+            if(rs.next()){
+                buscar(txtID.getText());
+                btnBuscar.setEnabled(false);
+                txtID.setEnabled(false);
+                Habilitar();
+                txtID.setText(""); 
+            } else
+                JOptionPane.showMessageDialog(null, "NO existe el usuario. ","ERROR",JOptionPane.ERROR_MESSAGE);
+                rs.close();
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+ 
     }
     
     private void buscar(String valor){
@@ -135,7 +156,6 @@ public class ModificarUser extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         regresar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -158,6 +178,7 @@ public class ModificarUser extends javax.swing.JFrame {
         jPopupMenu1.add(jMenuItem1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Cuentas.");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -174,13 +195,6 @@ public class ModificarUser extends javax.swing.JFrame {
         regresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 regresarActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Mostrar Cuentas");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
             }
         });
 
@@ -262,9 +276,7 @@ public class ModificarUser extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 581, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(163, 163, 163)
-                        .addComponent(jButton1)
-                        .addGap(92, 92, 92)
+                        .addGap(136, 136, 136)
                         .addComponent(txtNew)))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
@@ -301,11 +313,9 @@ public class ModificarUser extends javax.swing.JFrame {
                         .addComponent(btnModificar)
                         .addGap(32, 32, 32)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(7, 7, 7)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(txtNew))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtNew)
+                .addGap(7, 7, 7))
         );
 
         pack();
@@ -321,16 +331,16 @@ public class ModificarUser extends javax.swing.JFrame {
         
     }//GEN-LAST:event_regresarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        Mostrar("");
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        buscar(txtID.getText());
-        txtID.setEnabled(false);
-        Habilitar();
+        if (txtID.getText().equals("")) {
+            JOptionPane.showMessageDialog(null,"El campo esta vacio.","ADVERTENCIA",JOptionPane.WARNING_MESSAGE);
+        } else {
+            Existe(txtID.getText());
+            txtID.setText(""); 
+            
+        }
+        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -345,12 +355,13 @@ public class ModificarUser extends javax.swing.JFrame {
         
         if (control == 1) {
          
-            JOptionPane.showMessageDialog(null, "Producto Modificado", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
-            txtID.setText("");
-            txtName.setText("");
-            txtContra.setText("");
-            
+            JOptionPane.showMessageDialog(null, "Producto Modificado", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);           
         } 
+        txtID.setText("");
+        txtName.setText("");
+        txtContra.setText("");
+        btnBuscar.setEnabled(false);
+        txtID.setEnabled(true);
         Deshabilitar();
         Mostrar("");
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -418,7 +429,6 @@ public class ModificarUser extends javax.swing.JFrame {
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JComboBox<String> cbxTipo;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

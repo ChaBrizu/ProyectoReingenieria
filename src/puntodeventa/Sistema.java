@@ -29,14 +29,38 @@ public class Sistema extends javax.swing.JFrame {
     /**
      * Creates new form Sistema
      */
+      
     public Sistema() {
-        initComponents();       
+        initComponents();
+        buscar("");
     }
+    
+    public void Existe(String exp) {
+        try{
+            PreparedStatement us = con.getConnection().prepareStatement("SELECT codigo_producto FROM productos WHERE codigo_producto = '" + exp+ "'");
+            ResultSet rs = us.executeQuery();
+            if(rs.next()){
+                buscar(txtBuscar.getText());
+                txtBuscar.setText(""); 
+            } else
+                JOptionPane.showMessageDialog(null, "NO existe el producto. ","ERROR",JOptionPane.ERROR_MESSAGE);
+                rs.close();
+        } catch(SQLException e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+        
+    }
+  
     
     private void buscar(String valor){
         //Se definen el nombre de las columnas de la tabla y se agregan un modelo
-        DefaultTableModel modelo = new DefaultTableModel();
-        modelo.addColumn("id_producto");
+        DefaultTableModel modelo = new DefaultTableModel(){
+             @Override
+            public boolean isCellEditable(int fila, int columna) {
+            return false;
+        }
+        };
+        //modelo.addColumn("id_producto");
         modelo.addColumn("Nombre");
         modelo.addColumn("Costo");
         modelo.addColumn("Cantidad");
@@ -62,12 +86,12 @@ public class Sistema extends javax.swing.JFrame {
             ResultSet rs = us.executeQuery();//Almacena los datos de la consulta que se va a realizar
             //Se asignan los valores de la busqueda en una posicion del arreglo
             while( rs.next()) {
-                datos[0] = rs.getString(1);
-                datos[1] = rs.getString(2);
-                datos[2] = rs.getString(3);
-                datos[3] = rs.getString(4);
-                datos[4] = rs.getString(5);
-                datos[5] = rs.getString(6);
+                datos[0] = rs.getString(2);
+                datos[1] = rs.getString(3);
+                datos[2] = rs.getString(4);
+                datos[3] = rs.getString(5);
+                datos[4] = rs.getString(6);
+                //datos[5] = rs.getString(6);
                 modelo.addRow(datos);
             }
             jTable2.setModel(modelo);
@@ -87,7 +111,6 @@ public class Sistema extends javax.swing.JFrame {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -96,9 +119,11 @@ public class Sistema extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
 
         jMenuItem1.setText("Eliminar");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -109,13 +134,7 @@ public class Sistema extends javax.swing.JFrame {
         jPopupMenu1.add(jMenuItem1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jButton1.setText("Mostrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        setTitle("Inventario");
 
         jButton2.setText("Cuentas");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -184,13 +203,6 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
 
-        jButton7.setText("Cambiar contraseña");
-        jButton7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton7ActionPerformed(evt);
-            }
-        });
-
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -200,7 +212,21 @@ public class Sistema extends javax.swing.JFrame {
             }
         ));
         jTable2.setComponentPopupMenu(jPopupMenu1);
+        jTable2.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable2);
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("INVENTARIO");
+
+        jButton1.setText("Mostrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton7.setText("Vender");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -209,45 +235,55 @@ public class Sistema extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(29, 29, 29)
-                        .addComponent(jButton4)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(salir))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(jLabel1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jButton6)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton1)))
-                            .addComponent(jButton7))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jButton2)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton7)
+                                .addGap(204, 204, 204))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton6)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(97, 97, 97)
+                                        .addComponent(jButton5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(salir)
+                                        .addGap(15, 15, 15)))
+                                .addGap(7, 7, 7))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton2)
+                    .addComponent(jButton5)
                     .addComponent(salir)
-                    .addComponent(jButton5))
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addComponent(jButton7)
-                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton4)
+                    .addComponent(jButton3)
+                    .addComponent(jButton7))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -317,24 +353,16 @@ public class Sistema extends javax.swing.JFrame {
         login.setLocationRelativeTo (null);
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         buscar("");
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       buscar(txtBuscar.getText());
-       txtBuscar.setText("");
+        if (txtBuscar.getText().equals("")) {
+            JOptionPane.showMessageDialog(null,"El campo esta vacio, introduce el CODIGO DE PRODUCTO que quieres buscar.","ADVERTENCIA",JOptionPane.WARNING_MESSAGE);
+            
+        } else {
+            Existe(txtBuscar.getText());
+            
+        }
+       
     }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-        boolean bandera = true;
-        dispose ();
-        ChangePass changePass = new ChangePass (bandera);
-        changePass.setVisible (true);
-        changePass.setResizable (false);
-        changePass.setLocationRelativeTo (null);
-    }//GEN-LAST:event_jButton7ActionPerformed
 
     private void txtBuscarInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtBuscarInputMethodTextChanged
         // TODO add your handling code here:
@@ -354,13 +382,14 @@ public class Sistema extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
+        
         int fila=jTable2.getSelectedRow();//selecciona la fila que se quiere borrar
         String codi = "";
-        codi = jTable2.getValueAt(fila,0).toString();
+        codi = jTable2.getValueAt(fila,4).toString();
         
         //Aqui hace un delete para que se borre en la BD
         try{
-            PreparedStatement us = con.getConnection().prepareStatement("DELETE FROM productos WHERE id_producto like '"+codi+"'");
+            PreparedStatement us = con.getConnection().prepareStatement("DELETE FROM productos WHERE codigo_producto like '"+codi+"'");
             us.executeUpdate();
             buscar("");
         }catch(Exception e){
@@ -368,6 +397,11 @@ public class Sistema extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        buscar("");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -411,6 +445,7 @@ public class Sistema extends javax.swing.JFrame {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane2;
