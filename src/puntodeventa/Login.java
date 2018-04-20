@@ -49,6 +49,11 @@ public class Login extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
+<<<<<<< HEAD
+=======
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+>>>>>>> 147d47cdbf9450a3d975cd819606509b625cb5df
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -69,7 +74,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextField1);
-        jTextField1.setBounds(140, 120, 150, 20);
+        jTextField1.setBounds(140, 120, 150, 22);
 
         jButton1.setText("Iniciar Sesion");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -78,9 +83,25 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
+<<<<<<< HEAD
         jButton1.setBounds(160, 220, 120, 23);
         getContentPane().add(jPasswordField1);
         jPasswordField1.setBounds(140, 170, 150, 20);
+=======
+        jButton1.setBounds(160, 220, 120, 25);
+        getContentPane().add(jPasswordField1);
+        jPasswordField1.setBounds(140, 170, 150, 20);
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(-10, 0, 330, 50);
+
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(0, -20, 310, 320);
+>>>>>>> 147d47cdbf9450a3d975cd819606509b625cb5df
 
         jButton2.setText("Salir");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -89,12 +110,17 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
+<<<<<<< HEAD
         jButton2.setBounds(40, 220, 80, 23);
+=======
+        jButton2.setBounds(40, 220, 80, 25);
+>>>>>>> 147d47cdbf9450a3d975cd819606509b625cb5df
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+<<<<<<< HEAD
         Metodos ft=new Metodos();
         String usuario=jTextField1.getText();
         String contraseña=new String (jPasswordField1.getPassword());
@@ -105,6 +131,14 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Usuario o contraseña vacios.","ADVERTENCIA",JOptionPane.WARNING_MESSAGE);
             
         } else {
+=======
+            Metodos ft=new Metodos();
+            String usuario=jTextField1.getText();
+            String contraseña=new String (jPasswordField1.getPassword());
+            int control, tipo;
+            control=ft.SelectDatosAdmin(usuario, contraseña);
+            
+>>>>>>> 147d47cdbf9450a3d975cd819606509b625cb5df
             if(control==1){
                 tipo=ft.SelectTipoUser(usuario);
                 dispose();
@@ -141,9 +175,19 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Datos Incorrectos", "Error", JOptionPane.ERROR_MESSAGE);
             } 
         }*/
+<<<<<<< HEAD
         } 
     }//GEN-LAST:event_jButton1ActionPerformed
 
+=======
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+    // TODO add your handling code here:
+    }//GEN-LAST:event_jLabel5MouseClicked
+
+>>>>>>> 147d47cdbf9450a3d975cd819606509b625cb5df
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
         System.exit (0);
@@ -189,8 +233,15 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+<<<<<<< HEAD
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+=======
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
+>>>>>>> 147d47cdbf9450a3d975cd819606509b625cb5df
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
