@@ -11,14 +11,14 @@ import javax.swing.JOptionPane;
 
 public class Metodos {
     //private final String SQL_INSERT="INSERT INTO registro(usuario, contraseña)values(?, ?)";
-    private final String SQL_INSERT_ADMIN = "INSERT INTO registrousers (usuario, contraseña) values (?, ?)";
+    private final String SQL_INSERT_ADMIN = "INSERT INTO registrousers (usuario, contraseña, tipoUser) values (?, ?, ?)";
     private final String SQL_INSERT_PRODUCTOS = "INSERT INTO productos (nombre, costo, cantidad, descripcion, codigo_producto) values (?, ?, ?, ?, ?)";
     private final String SQL_SELECT_TIPOUSER="SELECT tipoUser FROM registrousers WHERE usuario= ?";
     private final String SQL_SELECT_ADMIN = "SELECT contraseña, tipoUser FROM registrousers WHERE usuario=?";
-    //private final String SQL_SELECT_PRODUCTOS = "SELECT id_producto FROM productos";
-    private final String SQL_UPDATE = "UPDATE registrousers SET usuario= ?, contraseña= ?  WHERE id_admin=?";
+    private final String SQL_DELETE_USUARIOS = "DELETE FROM `registrousers` WHERE id_admin=?";
+    private final String SQL_UPDATE = "UPDATE registrousers SET usuario= ?, contraseña= ?, tipoUser= ? WHERE id_admin=?";
     private final String SQL_UPDATE_PASS = "UPDATE registrousers SET contraseña = ? WHERE usuario=?";
-    private final String SQL_UPDATE_PRODUCTS = "UPDATE productos SET nombre = ?, costo = ?, cantidad = ?, descripcion = ?, codigo_producto = ? WHERE id_producto=?";
+    private final String SQL_UPDATE_PRODUCTS = "UPDATE productos SET nombre = ?, costo = ?, cantidad = ?, descripcion = ? WHERE codigo_producto=?";
     private ResultSet RS;
     private PreparedStatement PS;
     private final conectar CONEC;
@@ -51,11 +51,17 @@ public class Metodos {
         return 0;
     }
     
-    public int inserDatos(String usuario, String contraseña){
+        public int inserDatosAdmin (String usuario, String contraseña, boolean tipoUser){
         try{
             PS=CONEC.getConnection().prepareStatement(SQL_INSERT_ADMIN);
             PS.setString(1, usuario);
             PS.setString(2, contraseña);
+            if(tipoUser == true){
+                PS.setString(3, "admin");
+            }
+            else{
+                PS.setString(3, "usuario");
+            }
             
             int res=PS.executeUpdate();
             if(res>0){
@@ -70,16 +76,14 @@ public class Metodos {
         }
         return 0;
     }
-    
-        public int inserDatosAdmin (String usuario, String contraseña){
-        try{
-            PS=CONEC.getConnection().prepareStatement(SQL_INSERT_ADMIN);
-            PS.setString(1, usuario);
-            PS.setString(2, contraseña);
-            
+       
+    public void deleteDatos(String value){
+      try{
+            PS=CONEC.getConnection().prepareStatement(SQL_DELETE_USUARIOS);
+            PS.setString(1, value);
             int res=PS.executeUpdate();
             if(res>0){
-                JOptionPane.showMessageDialog(null,"Registro Exitoso","Exito",JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Usuario eliminado","Exito",JOptionPane.INFORMATION_MESSAGE);
             }
         }
         catch(Exception e){
@@ -87,27 +91,33 @@ public class Metodos {
         }
         finally{
             PS=null;
-        }
-        return 0;
+        }  
     }
    
-    public int upDatos(String usuario, String contraseña, String id_admin ){
+    public void upDatos(String usuario, String contraseña, boolean tipoAdmin, String id_admin ){
         try{
            PS=CONEC.getConnection().prepareStatement(SQL_UPDATE);
            PS.setString(1, usuario);
            PS.setString(2, contraseña);
-           //PS.setEnum(3,tipoUser)
-           PS.setString(3, id_admin);
+           if(tipoAdmin == true){
+                PS.setString(3, "admin");
+            }
+            else{
+                PS.setString(3, "usuario");
+            }
+           PS.setString(4, id_admin);
            
            int res=PS.executeUpdate();
            if(res>0){
-               JOptionPane.showMessageDialog(null, "Modificacion Cargada Con Exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+               JOptionPane.showMessageDialog(null, "Modificación realizada con exito", "Exito", JOptionPane.INFORMATION_MESSAGE);
            }
         }
         catch(Exception e){
             JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-        return 0;
+        finally{
+            PS=null;
+        }  
     }
     
     public int upDatosPass (String password, String usuario){
@@ -127,15 +137,15 @@ public class Metodos {
         return 0;
     }
     
-     public int updateProductos (String nombre, String costo, String cantidad, String descripcion, String codigo_producto, String id_producto){
+     public int updateProductos (String nombre, String costo, String cantidad, String descripcion, String codigo_producto){
         try{
            PS=CONEC.getConnection().prepareStatement(SQL_UPDATE_PRODUCTS);
-           PS.setString(6,id_producto);
+           PS.setString(5,codigo_producto);
            PS.setString(1, nombre);
            PS.setString(2, costo);
            PS.setString(3, cantidad);
            PS.setString(4, descripcion);
-           PS.setString(5, codigo_producto);
+           //PS.setString(5, codigo_producto);
            
            int res=PS.executeUpdate();
            if(res>0){
@@ -236,11 +246,9 @@ public class Metodos {
             }
             
             if(Con.equals("admin")){
-                JOptionPane.showMessageDialog(null, "Admin","Exito", JOptionPane.INFORMATION_MESSAGE);
                tipo = 1;
             }
             else{
-                JOptionPane.showMessageDialog(null, "Usuario","Exito", JOptionPane.INFORMATION_MESSAGE);
                tipo = 0;
             }
         }catch(Exception e){

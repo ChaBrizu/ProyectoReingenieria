@@ -2,6 +2,13 @@
 Punto de venta
 PROYECTO DE REINGENIERÍA POR CARLOS CHAVERO Y EMMANUEL GARCÍA
 
+Parche 1.4.0 "Cambios prominentes"
+Modificada la eliminación de usuarios, añadir usuarios con tipo gracias a una checkbox, más validaciones, etcétera... Modificar usuarios sigue sin servir. @Char
+
+Parche 1.3.2 "validaciones listas" no tengo mas que decir que ya valide los campos vacios, productos que ya existan y productos no existentes. @Nibtlesz
+
+
+
 Parche 1.3.1 "Lo logré :D"
 En ésta versión, se eliminó al fin el dichoso combo box del tipo de usuario, y fue sustituido por un más bonito y funcional SELECT, además de que se corrigieron ciertas redundancias en los return de algunas funciones. Seguiré buscando más cosas por corregir.
 @Char
