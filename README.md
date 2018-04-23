@@ -2,6 +2,9 @@
 Punto de venta
 PROYECTO DE REINGENIERÍA POR CARLOS CHAVERO Y EMMANUEL GARCÍA
 
+Parche 1.5.0 "Cambios prominentes"
+Cambiados los nombres de muchos textbox y botones, además de que se agregó un fondo de pantalla al jFrame del login. @Char
+
 Parche 1.4.0 "Cambios prominentes"
 Modificada la eliminación de usuarios, añadir usuarios con tipo gracias a una checkbox, más validaciones, etcétera... Modificar usuarios sigue sin servir. @Char
 

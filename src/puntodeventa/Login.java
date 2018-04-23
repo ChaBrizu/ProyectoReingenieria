@@ -23,12 +23,12 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         
         //insertar imagen
-        //ImageIcon imagen1=new ImageIcon(getClass().getResource("/imagenes/log.png"));
-        //ImageIcon fondo1=new ImageIcon(imagen1.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_DEFAULT));
-        //jLabel1.setIcon(fondo1);
-        //ImageIcon imagen2=new ImageIcon(getClass().getResource("/imagenes/samsung-galaxy-s8-720x720.png"));
-        //ImageIcon fondo2=new ImageIcon(imagen2.getImage().getScaledInstance(jLabel5.getWidth(), jLabel5.getHeight(), Image.SCALE_DEFAULT));
-        //jLabel5.setIcon(fondo2);
+        ImageIcon imagen1=new ImageIcon(getClass().getResource("/imagenes/log.png"));
+        ImageIcon fondo1=new ImageIcon(imagen1.getImage().getScaledInstance(jLabel1.getWidth(), jLabel1.getHeight(), Image.SCALE_DEFAULT));
+        jLabel1.setIcon(fondo1);
+        ImageIcon imagen2=new ImageIcon(getClass().getResource("/imagenes/fondoLogin.jpg"));
+        ImageIcon fondo2=new ImageIcon(imagen2.getImage().getScaledInstance(jLabel5.getWidth(), jLabel5.getHeight(), Image.SCALE_DEFAULT));
+        jLabel5.setIcon(fondo2);
         
         
         //this.add (combo1);
@@ -50,6 +50,8 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPasswordField1 = new javax.swing.JPasswordField();
         jButton2 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Iniciar sesión.");
@@ -57,11 +59,11 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setText("Usuario: ");
         getContentPane().add(jLabel2);
-        jLabel2.setBounds(20, 120, 70, 20);
+        jLabel2.setBounds(20, 220, 70, 20);
 
         jLabel3.setText("Contraseña:");
         getContentPane().add(jLabel3);
-        jLabel3.setBounds(20, 170, 80, 20);
+        jLabel3.setBounds(20, 270, 80, 20);
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,7 +71,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextField1);
-        jTextField1.setBounds(140, 120, 150, 20);
+        jTextField1.setBounds(140, 220, 150, 22);
 
         jButton1.setText("Iniciar Sesion");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -78,9 +80,9 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton1);
-        jButton1.setBounds(160, 220, 120, 23);
+        jButton1.setBounds(160, 320, 120, 25);
         getContentPane().add(jPasswordField1);
-        jPasswordField1.setBounds(140, 170, 150, 20);
+        jPasswordField1.setBounds(140, 270, 150, 20);
 
         jButton2.setText("Salir");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -89,7 +91,11 @@ public class Login extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButton2);
-        jButton2.setBounds(40, 220, 80, 23);
+        jButton2.setBounds(40, 320, 80, 25);
+        getContentPane().add(jLabel1);
+        jLabel1.setBounds(60, 30, 170, 160);
+        getContentPane().add(jLabel5);
+        jLabel5.setBounds(0, 0, 310, 370);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -189,8 +195,10 @@ public class Login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
