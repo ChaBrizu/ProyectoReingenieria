@@ -298,12 +298,9 @@ public class Sistema extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-        // TODO add your handling code here:
-        dispose ();
-        ConfirmarSalida confirmarSalida = new ConfirmarSalida ();
-        confirmarSalida.setVisible (true);
-        confirmarSalida.setLocationRelativeTo (null);
-        confirmarSalida.setResizable(false);
+        Metodos ft=new Metodos();
+        boolean confir=ft.confirmacionSalida();
+        if (confir==true) {dispose();}
     }//GEN-LAST:event_salirActionPerformed
 
     private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked

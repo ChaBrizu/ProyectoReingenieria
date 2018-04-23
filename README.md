@@ -2,6 +2,9 @@
 Punto de venta
 PROYECTO DE REINGENIERÍA POR CARLOS CHAVERO Y EMMANUEL GARCÍA
 
+Parche 1.5.1 "Form de confirmación eliminada"
+Se eliminó el form de confirmación de salida, y se utilizó un mensaje de diálogo. @Char
+
 Parche 1.5.0 "Cambios prominentes"
 Cambiados los nombres de muchos textbox y botones, además de que se agregó un fondo de pantalla al jFrame del login. @Char
 

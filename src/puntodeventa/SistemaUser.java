@@ -220,12 +220,9 @@ public class SistemaUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        dispose ();
-        ConfirmarSalida confirmarSalida = new ConfirmarSalida ();
-        confirmarSalida.setVisible (true);
-        confirmarSalida.setLocationRelativeTo (null);
-        confirmarSalida.setResizable(false);
+        Metodos ft=new Metodos();
+        boolean confir=ft.confirmacionSalida();
+        if (confir==true) {dispose();}
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

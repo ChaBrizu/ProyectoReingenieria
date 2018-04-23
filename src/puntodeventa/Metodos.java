@@ -257,4 +257,14 @@ public class Metodos {
         return tipo;
     }
     
+    public boolean confirmacionSalida(){
+        int reply = JOptionPane.showConfirmDialog(null, "¿Realmente quieres salir?", "Atención!", JOptionPane.YES_NO_OPTION);
+        if (reply == JOptionPane.YES_OPTION) {
+          return true;
+        }
+        else {
+           return false;
+        }
+    }
+    
 }
