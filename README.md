@@ -2,6 +2,10 @@
 Punto de venta
 PROYECTO DE REINGENIERÍA POR CARLOS CHAVERO Y EMMANUEL GARCÍA
 
+Parche 1.6 "Form venta agreagado"
+ya puede vender por el momento solo administradores.@Nibtlesz
+
+
 Parche 1.5.1 "Form de confirmación eliminada"
 Se eliminó el form de confirmación de salida, y se utilizó un mensaje de diálogo. @Char
 
@@ -34,7 +38,7 @@ revisalo y me avisas que onda, si quieres que haga algo mas me dices.
 - te dejo la base de datos por si la necesitas puntoventa.sql
 
 
-Parche 1.1 "Me la va pelando el proyecto :v"
+Parche 1.1 ":v"
 
 Bienvenido al parche 1.1 del punto de venta del punto de venta, en este parche hice unos nerfeos
 a algunos formularios y buffamos a algunos botones que estaban fuera del meta, el nombre lo elegi

@@ -158,10 +158,10 @@ public class Sistema extends javax.swing.JFrame {
             }
         });
         txtBuscar.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 txtBuscarInputMethodTextChanged(evt);
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         txtBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -227,6 +227,11 @@ public class Sistema extends javax.swing.JFrame {
         });
 
         btnVender.setText("Vender");
+        btnVender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVenderActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -398,6 +403,16 @@ public class Sistema extends javax.swing.JFrame {
         // TODO add your handling code here:
         buscar("");
     }//GEN-LAST:event_btnMostrarActionPerformed
+
+    private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
+        // TODO add your handling code here:
+        dispose ();
+        Vender v = new Vender();
+        v.setVisible (true);
+        v.setResizable (false);
+        v.setLocationRelativeTo (null);
+        
+    }//GEN-LAST:event_btnVenderActionPerformed
 
     /**
      * @param args the command line arguments

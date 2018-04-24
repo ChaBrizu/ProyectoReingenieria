@@ -209,6 +209,8 @@ public class Metodos {
            return 0;
         }
     }*/
+     
+     
     
     public int SelectDatosAdmin (String usuario,String contra){
         String Con = "";
@@ -266,5 +268,7 @@ public class Metodos {
            return false;
         }
     }
+    
+    
     
 }
